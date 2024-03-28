@@ -3,11 +3,16 @@ import axios from "axios";
 
 export default createStore({
     state: {
-        jadwal: {}
+        jadwal: {},
+        jadwalPerhari: {},
+       
     },
     getters: {
         getData(state) {
             return state.jadwal;
+        },
+        getJadwalPerhari(state) {
+            return state.jadwalPerhari;
         }
     },
     actions: {
