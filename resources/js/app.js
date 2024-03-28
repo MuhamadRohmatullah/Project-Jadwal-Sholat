@@ -8,6 +8,7 @@ import './bootstrap';
 import { createApp } from 'vue';
 import { createRouter, createWebHistory } from 'vue-router';
 import { routes } from './routes';
+import store from './store';
 import vuetify from './vuetify';
 
 /**
@@ -51,4 +52,5 @@ app.component('select-wilayah', SelectWilayah);
 
 app.use(vuetify);
 app.use(router);
+app.use(store);
 app.mount('#app');
