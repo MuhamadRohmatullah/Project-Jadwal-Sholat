@@ -1,0 +1,3 @@
+project web singgle page aplication (SPA) menampilkan jadwal waktu sholat, menampilkan jadwal sholat pada tanggal hari ini, jadwal sholat satu bulan, dan dapat menampilkan jadwal sholat berdasarkan beberapa wilayah, juga terdapat countdown waktu menuju waktu sholat selanjutnya, serta menampilkan tanggal hijriyah di tanggal saat ini. data diambil dari api menggunakan axios. 
+
+project dibuat dengan : Laravel 10, vuejs 3(vue-router, vuex, vuetify, vite) dan axios serta bootstrap 5.
