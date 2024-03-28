@@ -17,7 +17,7 @@
         }}:{{ dateTime.seconds }} WIB
       </p>
       <span class="text-center"
-        ><v-icon icon="mdi-timer fw-bold" class="icon" />Menuju
+        ><v-icon icon="mdi-timer fw-bold" class="icon" />{{ count }} Menuju
         waktu shalat selanjutnya</span
       >
     </div>
@@ -48,7 +48,6 @@
       </div>
     </div>
    
-
   </div>
 </template>
 <script>
@@ -62,13 +61,15 @@ export default {
         hours: date.getHours(),
         minutes: date.getMinutes(),
         seconds: date.getSeconds(),
-      }
+      },
+      timer: undefined,
     };
   },
   methods: {
     timeNow() {
       this.clock = this.today.toLocaleTimeString();
     },
+    
     setDateTime() {
       const date = new Date();
       this.dateTime = {
@@ -82,6 +83,7 @@ export default {
     this.timer = setInterval(this.setDateTime, 1000);
     this.$store.dispatch("getMasehi");
     this.$store.dispatch("getNow");
+    this.$store.dispatch("getCount");
   },
   beforeUnmount() {
     clearInterval(this.timer);
@@ -92,6 +94,7 @@ export default {
       islamic: "getHijriyah",
       jadwalPerhari: "getJadwalPerhari",
       dateNow: "getDateNow",
+      count: "getCountDown",
     }),
   },
   created() {
