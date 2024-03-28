@@ -2,10 +2,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col">
-       
+        <span class="month" @click="previous()"
+          ><v-icon icon="mdi-chevron-left" size="30px" />Bulan sebelumnya</span
+        >
       </div>
       <div class="col text-end">
-       
+        <span class="month" @click="next()"
+          >Bulan sekarang<v-icon icon="mdi-chevron-right" size="30px"
+        /></span>
       </div>
     </div>
     <div class="card mt-1 jadwalfull">
@@ -14,7 +18,6 @@
           <h4 class="mt-1 me-0">Jadwal waktu shalat wilayah</h4>
         </div>
         <div class="col-3 col-lg-4 col-xl-4 text-start">
-         
         </div>
       </div>
       <p class="text-center">
@@ -47,7 +50,9 @@
         </tbody>
       </table>
     </div>
-  
+    <span @click="goHome()" id="tohome"
+      ><v-icon icon="mdi-chevron-double-left" />Kembali ke Beranda</span
+    >
   </div>
 </template>
 <script>
@@ -73,7 +78,15 @@ export default {
     };
   },
   methods: {
-   
+    goHome() {
+      this.$router.push({ name: "home" });
+    },
+    previous() {
+      this.$store.dispatch("getJadwal", 1);
+    },
+    next() {
+      this.$store.dispatch("getJadwal", 2);
+    },
   },
   created() {
     this.$store.dispatch("getJadwal");
