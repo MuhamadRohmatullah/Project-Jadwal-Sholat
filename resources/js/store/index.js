@@ -5,7 +5,8 @@ export default createStore({
     state: {
         jadwal: {},
         jadwalPerhari: {},
-        dateNow: ""
+        dateNow: "",
+        count: 0
     },
     getters: {
         getData(state) {
@@ -16,6 +17,9 @@ export default createStore({
         },
         getDateNow(state) {
             return state.dateNow;
+        },
+        getCountDown(state) {
+            return state.count;
         }
     },
     actions: {
@@ -57,14 +61,16 @@ export default createStore({
 
             context.commit('ADD_DATA', response.data);
         },
-        getNow(context) {
-            let formatIndonesia = new Intl.DateTimeFormat('id-ID', {
-                year:
-                    'numeric', month: '2-digit', day: '2-digit'
-            })
-                .format(new Date());
+        getCount: async (context) => {
+            let bulan = new Date().getMonth();
+            bulan += 1;
+            if (bulan < 10) {
+                bulan = '0' + bulan;
+            }
+            let tanggal = new Date().getFullYear() + '/' + bulan;
+            let response = await axios.get('https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/adzan/sukabumi/' + tanggal + '.json');
 
-            context.commit('DATE_NOW', formatIndonesia);
+            context.commit('COUNT', response.data);
         }
     },
     mutations: {
@@ -82,8 +88,66 @@ export default createStore({
             state.jadwalPerhari = list,
                 state.jadwal = payload;
         },
+      
         DATE_NOW(state, payload) {
             state.dateNow = payload;
+        },
+        COUNT(state, payload) {
+            var countDownDate = null;
+            function time(sholat) {
+                let waktu = payload[new Date().getDate() - 1].tanggal;
+                // let obj = Object.values(payload[new Date().getDate()-1]);
+                let arr = payload[new Date().getDate() - 1][sholat].split(":");
+                let deadline = new Date(waktu);
+                deadline.setHours(arr[0], arr[1]);
+
+                return deadline.getTime();
+            }
+
+            if (time('shubuh') > new Date().getTime()) {
+                countDownDate = time('shubuh');
+            } else if (time('dzuhur') >= new Date().getTime()) {
+                countDownDate = time('dzuhur');
+            } else if (time('ashr') > new Date().getTime()) {
+                countDownDate = time('ashr');
+            } else if (time('magrib') > new Date().getTime()) {
+                countDownDate = time('magrib');
+            } else if (time('isya') > new Date().getTime()) {
+                countDownDate = time('isya');
+            } else {
+                let waktu = payload[new Date().getDate()].tanggal;
+                // let obj = Object.values(payload[new Date().getDate()-1]);
+                let arr = payload[new Date().getDate()]['shubuh'].split(":");
+                let deadline = new Date(waktu);
+                deadline.setHours(arr[0], arr[1]);
+
+                countDownDate = deadline.getTime();
+            }
+            // Update the count down every 1 second
+            var x = setInterval(function () {
+
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Output the result in an element with id="countdown-demo"
+                let timing = hours + " Jam "
+                    + minutes + " Menit " + seconds + " Detik ";
+                state.count = timing.replace(/-/g, '');
+                // If the count down is over, write some text 
+                if (distance < 0) {
+                    //     clearInterval(x); 
+                    location.reload()
+
+                }
+            }, 1000);
         }
     }
 })
