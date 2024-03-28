@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <header-component />
     <div class="card pt-2" id="body-top">
       <div class="row mt-1">
         <div class="col-7 col-lg-6 col-xl-7 text-end me-0">
@@ -49,6 +50,7 @@
     <span @click="goToDetail()" id="expand"
       ><v-icon icon="mdi-chevron-double-right" />Jadwal selengkapnya</span
     >
+    <footer-element />
   </div>
 </template>
 <script>
