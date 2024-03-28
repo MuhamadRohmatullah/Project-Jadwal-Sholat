@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+  
     <div class="row">
       <div class="col">
        
@@ -14,6 +15,7 @@
           <h4 class="mt-1 me-0">Jadwal waktu shalat wilayah</h4>
         </div>
         <div class="col-3 col-lg-4 col-xl-4 text-start">
+          
         </div>
       </div>
      
@@ -31,20 +33,54 @@
             <th scope="col">Isya</th>
           </tr>
         </thead>
-       
+        <tbody v-for="(element, index) in jadwal" :key="index">
+          <tr>
+            <td>{{ new Date(element.tanggal).toLocaleDateString("ID-id") }}</td>
+            <td>{{ element.shubuh }} WIB</td>
+            <td>{{ element.dzuhur }} WIB</td>
+            <td>{{ element.ashr }} WIB</td>
+            <td>{{ element.magrib }} WIB</td>
+            <td>{{ element.isya }} WIB</td>
+          </tr>
+        </tbody>
       </table>
     </div>
-   
+  
   </div>
 </template>
 <script>
-
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-     
+      today: new Date(),
+      month: [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember",
+      ],
     };
-  }
+  },
+  methods: {
+   
+  },
+  created() {
+    this.$store.dispatch("getJadwal");
+  },
+  computed: {
+    ...mapGetters({
+      jadwal: "getData",
+    }),
+  },
 };
 </script>
 <style>
