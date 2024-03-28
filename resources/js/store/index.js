@@ -4,6 +4,7 @@ import axios from "axios";
 export default createStore({
     state: {
         jadwal: {},
+        islam: {},
         jadwalPerhari: {},
         dateNow: "",
         count: 0
@@ -11,6 +12,9 @@ export default createStore({
     getters: {
         getData(state) {
             return state.jadwal;
+        },
+        getHijriyah(state) {
+            return state.islam;
         },
         getJadwalPerhari(state) {
             return state.jadwalPerhari;
@@ -61,6 +65,22 @@ export default createStore({
 
             context.commit('ADD_DATA', response.data);
         },
+        getMasehi: async (context) => {
+
+            let tanggal = new Date().toLocaleDateString('sv-SE').replace(/-/g, '/');
+            let response = await axios.get('https://service.unisayogya.ac.id/kalender/api/masehi2hijriah/muhammadiyah/' + tanggal);
+            context.commit('HIJRIYAH', response.data);
+        },
+       
+        getNow(context) {
+            let formatIndonesia = new Intl.DateTimeFormat('id-ID', {
+                year:
+                    'numeric', month: '2-digit', day: '2-digit'
+            })
+                .format(new Date());
+
+            context.commit('DATE_NOW', formatIndonesia);
+        },
         getCount: async (context) => {
             let bulan = new Date().getMonth();
             bulan += 1;
@@ -88,7 +108,14 @@ export default createStore({
             state.jadwalPerhari = list,
                 state.jadwal = payload;
         },
-      
+        HIJRIYAH(state, payload) {
+            // let hijriyah = {
+            //     tanggal : payload[0].tanggal_hijriyah,
+            //     bulan : payload[0].bulan_hijriyah,
+            //     tahun : payload[0].tahun_hijriyah                
+            // }
+            state.islam = payload;
+        },
         DATE_NOW(state, payload) {
             state.dateNow = payload;
         },
