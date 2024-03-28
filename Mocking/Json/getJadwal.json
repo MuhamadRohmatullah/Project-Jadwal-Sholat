@@ -1,0 +1,81 @@
+{
+    "data":[
+        {
+            "tanggal" : 1,
+            "waktu" : {
+                "subuh" : 4.30,
+                "dzuhur" : 12.01,
+                "ashar" : 15.30,
+                "maghrib" : 18.01,
+                "isya" : 19.00
+            },
+            "hijriyah" : "7 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 2,
+            "waktu" : {
+                "subuh" : 4.32,
+                "dzuhur" : 12.02,
+                "ashar" : 15.32,
+                "maghrib" : 18.02,
+                "isya" : 19.02
+            },
+            "hijriyah" : "8 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 3,
+            "waktu" : {
+                "subuh" : 4.33,
+                "dzuhur" : 12.03,
+                "ashar" : 15.33,
+                "maghrib" : 18.03,
+                "isya" : 19.03
+            },
+            "hijriyah" : "9 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 4,
+            "waktu" : {
+                "subuh" : 4.34,
+                "dzuhur" : 12.04,
+                "ashar" : 15.34,
+                "maghrib" : 18.04,
+                "isya" : 19.04
+            },
+            "hijriyah" : "10 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 5,
+            "waktu" : {
+                "subuh" : 4.35,
+                "dzuhur" : 12.05,
+                "ashar" : 15.35,
+                "maghrib" : 18.05,
+                "isya" : 19.05
+            },
+            "hijriyah" : "11 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 6,
+            "waktu" : {
+                "subuh" : 4.36,
+                "dzuhur" : 12.06,
+                "ashar" : 15.36,
+                "maghrib" : 18.06,
+                "isya" : 19.06
+            },
+            "hijriyah" : "12 Ramadhan 1444H"
+        },
+        {
+            "tanggal" : 7,
+            "waktu" : {
+                "subuh" : 4.37,
+                "dzuhur" : 12.07,
+                "ashar" : 15.37,
+                "maghrib" : 18.07,
+                "isya" : 19.07
+            },
+            "hijriyah" : "13 Ramadhan 1444H"
+        }
+    ]
+}
