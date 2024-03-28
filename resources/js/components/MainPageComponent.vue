@@ -28,7 +28,7 @@
           <div class="text-center">
             <v-icon icon="mdi-calendar" class="icon" />
             <h4>
-             
+              {{ islamic.tanggal }} {{ islamic.namabulan }} {{ islamic.tahun }}
             </h4>
           </div>
         </div>
@@ -48,7 +48,7 @@
       </div>
     </div>
    
-    <footer-element />
+
   </div>
 </template>
 <script>
@@ -69,7 +69,6 @@ export default {
     timeNow() {
       this.clock = this.today.toLocaleTimeString();
     },
-   
     setDateTime() {
       const date = new Date();
       this.dateTime = {
@@ -81,7 +80,8 @@ export default {
   },
   beforeMount() {
     this.timer = setInterval(this.setDateTime, 1000);
-    
+    this.$store.dispatch("getMasehi");
+    this.$store.dispatch("getNow");
   },
   beforeUnmount() {
     clearInterval(this.timer);
@@ -89,6 +89,7 @@ export default {
   computed: {
     ...mapGetters({
       jadwal: "getData",
+      islamic: "getHijriyah",
       jadwalPerhari: "getJadwalPerhari",
       dateNow: "getDateNow",
     }),
