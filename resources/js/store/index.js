@@ -5,7 +5,7 @@ export default createStore({
     state: {
         jadwal: {},
         jadwalPerhari: {},
-       
+        dateNow: ""
     },
     getters: {
         getData(state) {
@@ -13,6 +13,9 @@ export default createStore({
         },
         getJadwalPerhari(state) {
             return state.jadwalPerhari;
+        },
+        getDateNow(state) {
+            return state.dateNow;
         }
     },
     actions: {
@@ -53,6 +56,15 @@ export default createStore({
             let response = await axios.get('https://raw.githubusercontent.com/lakuapik/jadwalsholatorg/master/adzan/' + wilayah + '/' + tanggal + '.json');
 
             context.commit('ADD_DATA', response.data);
+        },
+        getNow(context) {
+            let formatIndonesia = new Intl.DateTimeFormat('id-ID', {
+                year:
+                    'numeric', month: '2-digit', day: '2-digit'
+            })
+                .format(new Date());
+
+            context.commit('DATE_NOW', formatIndonesia);
         }
     },
     mutations: {
@@ -69,6 +81,9 @@ export default createStore({
             }
             state.jadwalPerhari = list,
                 state.jadwal = payload;
+        },
+        DATE_NOW(state, payload) {
+            state.dateNow = payload;
         }
     }
 })
