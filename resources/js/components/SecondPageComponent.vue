@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+    <header-component />
     <div class="row">
       <div class="col">
         <span class="month" @click="previous()"
@@ -18,6 +19,7 @@
           <h4 class="mt-1 me-0">Jadwal waktu shalat wilayah</h4>
         </div>
         <div class="col-3 col-lg-4 col-xl-4 text-start">
+          <select-wilayah id="elb" />
         </div>
       </div>
       <p class="text-center">
