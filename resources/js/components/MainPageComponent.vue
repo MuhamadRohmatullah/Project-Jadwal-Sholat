@@ -1,5 +1,6 @@
 <template>
   <div class="container-fluid">
+   
     <div class="card pt-2" id="body-top">
       <div class="row mt-1">
         <div class="col-7 col-lg-6 col-xl-7 text-end me-0">
@@ -15,7 +16,10 @@
           dateTime.minutes
         }}:{{ dateTime.seconds }} WIB
       </p>
-      
+      <span class="text-center"
+        ><v-icon icon="mdi-timer fw-bold" class="icon" />Menuju
+        waktu shalat selanjutnya</span
+      >
     </div>
 
     <div class="row">
@@ -24,24 +28,27 @@
           <div class="text-center">
             <v-icon icon="mdi-calendar" class="icon" />
             <h4>
-              
+             
             </h4>
           </div>
         </div>
       </div>
       <div
+        v-for="(element, key) in jadwalPerhari"
+        :key="key"
+        class="col-sm-12 col-lg-6 col-xl-4"
       >
         <div class="card mt-2 shadow-sm" id="jam">
           <div class="waktu text-center my-2">
             <v-icon icon="mdi-timer" class="icon" />
-            <h4></h4>
-            <h4>WIB</h4>
+            <h4>{{ key }}</h4>
+            <h4>{{ element }} WIB</h4>
           </div>
         </div>
       </div>
     </div>
-
-
+   
+    <footer-element />
   </div>
 </template>
 <script>
@@ -55,10 +62,13 @@ export default {
         hours: date.getHours(),
         minutes: date.getMinutes(),
         seconds: date.getSeconds(),
-      },
+      }
     };
   },
   methods: {
+    timeNow() {
+      this.clock = this.today.toLocaleTimeString();
+    },
    
     setDateTime() {
       const date = new Date();
@@ -71,17 +81,23 @@ export default {
   },
   beforeMount() {
     this.timer = setInterval(this.setDateTime, 1000);
+    
   },
   beforeUnmount() {
     clearInterval(this.timer);
   },
   computed: {
     ...mapGetters({
+      jadwal: "getData",
+      jadwalPerhari: "getJadwalPerhari",
       dateNow: "getDateNow",
     }),
   },
   created() {
-   
+    this.$store.dispatch("getJadwal");
+    setInterval(() => {
+      this.timeNow();
+    }, 1000);
   },
 };
 </script>
