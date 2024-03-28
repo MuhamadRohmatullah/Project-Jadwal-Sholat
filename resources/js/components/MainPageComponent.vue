@@ -1,6 +1,5 @@
 <template>
   <div class="container-fluid">
-   
     <div class="card pt-2" id="body-top">
       <div class="row mt-1">
         <div class="col-7 col-lg-6 col-xl-7 text-end me-0">
@@ -47,7 +46,9 @@
         </div>
       </div>
     </div>
-   
+    <span @click="goToDetail()" id="expand"
+      ><v-icon icon="mdi-chevron-double-right" />Jadwal selengkapnya</span
+    >
   </div>
 </template>
 <script>
@@ -69,7 +70,9 @@ export default {
     timeNow() {
       this.clock = this.today.toLocaleTimeString();
     },
-    
+    goToDetail() {
+      this.$router.push({ name: "second" });
+    },
     setDateTime() {
       const date = new Date();
       this.dateTime = {
@@ -83,6 +86,7 @@ export default {
     this.timer = setInterval(this.setDateTime, 1000);
     this.$store.dispatch("getMasehi");
     this.$store.dispatch("getNow");
+    this.$store.dispatch("getSurah");
     this.$store.dispatch("getCount");
   },
   beforeUnmount() {
