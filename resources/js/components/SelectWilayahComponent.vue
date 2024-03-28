@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <span @click="getWilayah()">
     <select
       class="form-select form-select-sm fs-5 shadow-sm"
       aria-label="Small select example"
@@ -21,6 +21,11 @@ export default {
       wilayah: "jakartapusat",
       id: "",
     };
+  },
+  methods: {
+    getWilayah() {
+      this.$store.dispatch("getJadwal", this.wilayah);
+    },
   },
 };
 </script>
