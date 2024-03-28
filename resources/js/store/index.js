@@ -7,6 +7,7 @@ export default createStore({
         islam: {},
         jadwalPerhari: {},
         dateNow: "",
+        surah: {},
         count: 0
     },
     getters: {
@@ -21,6 +22,9 @@ export default createStore({
         },
         getDateNow(state) {
             return state.dateNow;
+        },
+        getCaption(state) {
+            return state.surah;
         },
         getCountDown(state) {
             return state.count;
@@ -71,7 +75,36 @@ export default createStore({
             let response = await axios.get('https://service.unisayogya.ac.id/kalender/api/masehi2hijriah/muhammadiyah/' + tanggal);
             context.commit('HIJRIYAH', response.data);
         },
-       
+        getSurah: async (context, payload) => {
+            let obj = [
+                {
+                    surah: 17,
+                    ayat: 77,
+                    nama: "Al-Isra"
+                },
+                {
+                    surah: 11,
+                    ayat: 114,
+                    nama: "Al-Hud"
+                }
+            ]
+            let surah = null;
+            let ayat = null;
+            if (payload == 1) {
+                surah = obj[1].surah;
+                ayat = obj[1].ayat;
+            } else {
+                surah = obj[0].surah;
+                ayat = obj[0].ayat;
+            }
+            let response = await axios.get('https://api.npoint.io/99c279bb173a6e28359c/surat/' + surah + '/' + ayat);
+            response.data['nama'] = obj[0].nama;
+            if (payload == 1) {
+                response.data['nama'] = obj[1].nama;
+            }
+            console.log(response.data);
+            context.commit('SURAH', response.data);
+        },
         getNow(context) {
             let formatIndonesia = new Intl.DateTimeFormat('id-ID', {
                 year:
@@ -118,6 +151,9 @@ export default createStore({
         },
         DATE_NOW(state, payload) {
             state.dateNow = payload;
+        },
+        SURAH(state, payload) {
+            state.surah = payload
         },
         COUNT(state, payload) {
             var countDownDate = null;
