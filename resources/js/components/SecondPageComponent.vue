@@ -1,12 +1,11 @@
 <template>
   <div class="container-fluid">
-  
     <div class="row">
       <div class="col">
        
       </div>
       <div class="col text-end">
-        
+       
       </div>
     </div>
     <div class="card mt-1 jadwalfull">
@@ -15,10 +14,13 @@
           <h4 class="mt-1 me-0">Jadwal waktu shalat wilayah</h4>
         </div>
         <div class="col-3 col-lg-4 col-xl-4 text-start">
-          
+         
         </div>
       </div>
-     
+      <p class="text-center">
+        {{ month[new Date(jadwal[0].tanggal).getMonth()] }}
+        {{ today.getFullYear() }}
+      </p>
     </div>
 
     <div class="card">
